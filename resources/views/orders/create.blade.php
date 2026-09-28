@@ -268,12 +268,12 @@
         /*
          * Load products from database.
          */
+
         async function loadProducts() {
 
             /*
-             * We will connect this to your product API/database
-             * in the next step.
-             */
+             * We will connect this to your product API/database             
+            */
 
             try {
 
@@ -302,6 +302,10 @@
             }
 
         }
+
+        /* 
+        *Load low stock products based on threshold
+        */
 
         async function loadLowStockProducts() {
 
@@ -373,6 +377,10 @@
                     '<p>Unable to load low stock products.</p>';
             }
         }
+
+        /*
+         * Load customer orders based on email.
+         */
 
         async function loadCustomerOrders() {
 

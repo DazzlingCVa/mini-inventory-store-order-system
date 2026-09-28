@@ -15,7 +15,7 @@ use App\Models\Product;
 
 class OrderController extends Controller
 {
-    //
+    // Store a new order
     public function store(Request $request)
     {
         // we will validate the request data
@@ -40,7 +40,7 @@ class OrderController extends Controller
         $tax = 0;
         $order = null;
 
-        //
+        // We will use a database transaction to ensure that the order and its items are created atomically
         DB::transaction(function () use ($validated, $customer, &$subtotal, &$tax, &$order) {
             $products = [];
             foreach ($validated['items'] as $item) {
@@ -99,6 +99,7 @@ class OrderController extends Controller
             }
         });
 
+        // Dispatch the job to send order confirmation email
         SendOrderConfirmation::dispatch($order);
 
         return response()->json([
@@ -108,6 +109,7 @@ class OrderController extends Controller
 
     }
 
+    // Get all orders for a specific customer by email
     public function customerOrders(Request $request)
     {
         $validated = $request->validate([
@@ -133,6 +135,7 @@ class OrderController extends Controller
         ]);
     }
 
+    // Get products with stock on hand less than or equal to a specified threshold
     public function lowStockProducts(Request $request)
     {
         $validated = $request->validate([
@@ -151,6 +154,7 @@ class OrderController extends Controller
         ]);
     }
 
+    // Get all products ordered by name
     public function products()
     {
         $products = Product::orderBy('name')->get();

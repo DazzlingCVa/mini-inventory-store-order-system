@@ -13,7 +13,7 @@ class Customer extends Model
 
     protected $fillable = ['name', 'email'];
 
-
+    // relationship with orders
     public function orders()
     {
         return $this->hasMany(Order::class);

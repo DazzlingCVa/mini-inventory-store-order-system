@@ -13,7 +13,7 @@ class Product extends Model
 
     protected $fillable = ['name', 'code', 'price_per_unit', 'tax_percentage', 'stock_on_hand'];
 
-
+    // relationship with order items
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
